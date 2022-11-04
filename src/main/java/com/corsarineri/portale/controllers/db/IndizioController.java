@@ -71,6 +71,7 @@ class IndizioController {
 					if (newIndizio.getAiutoArrivato()!=null) indizio.setAiutoArrivato(newIndizio.getAiutoArrivato());
 					if (newIndizio.getAiutoArrivato2()!=null) indizio.setAiutoArrivato2(newIndizio.getAiutoArrivato2());
 					if (newIndizio.getOrarioAiuto()!=null) indizio.setOrarioAiuto(newIndizio.getOrarioAiuto());
+					if (newIndizio.getOrarioAiuto2()!=null) indizio.setOrarioAiuto2(newIndizio.getOrarioAiuto2());
 					if (newIndizio.getOrarioArrivoInBase()!=null) indizio.setOrarioArrivoInBase(newIndizio.getOrarioArrivoInBase());
 					if (newIndizio.getOrarioRitiroComitato()!=null) indizio.setOrarioRitiroComitato(newIndizio.getOrarioRitiroComitato());
 					if (newIndizio.getOrarioSoluzione()!=null) indizio.setOrarioSoluzione(newIndizio.getOrarioSoluzione());

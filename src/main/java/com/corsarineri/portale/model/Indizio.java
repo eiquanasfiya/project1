@@ -37,9 +37,10 @@ public class Indizio {
 	private Long anno;
 	private Boolean aiutoArrivato;
 	private Boolean aiutoArrivato2;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orarioAiuto;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date orarioAiuto2;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orarioSoluzione;
 	@Temporal(TemporalType.TIMESTAMP)
