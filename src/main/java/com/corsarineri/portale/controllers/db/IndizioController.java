@@ -1,7 +1,10 @@
 package com.corsarineri.portale.controllers.db;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.corsarineri.portale.dto.IndizioDTO;
+import com.corsarineri.portale.service.BlockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,12 +25,18 @@ import com.corsarineri.portale.exceptions.IndizioNotFoundException;
 @CrossOrigin
 @RestController
 class IndizioController {
+
+
+
 	private Logger logger = LoggerFactory.getLogger(IndizioController.class);
 	private final IndizioRepository repository;
 	private final UriRepository uriRepository;
-	IndizioController(IndizioRepository repository,UriRepository uriRepository) {
+	private final BlockService blockService;
+
+	IndizioController(IndizioRepository repository, UriRepository uriRepository, BlockService blockService) {
 		this.repository = repository;
 		this.uriRepository = uriRepository;
+		this.blockService = blockService;
 	}
 
 	// Aggregate root
@@ -40,6 +49,8 @@ class IndizioController {
 	@PostMapping("/indizi")
 	Indizio newIndizio(@RequestBody Indizio newIndizio) {
 		logger.info("Request to create new indizio: "+newIndizio);
+		newIndizio.setBlockId(blockService.getCurrentBlockValue());
+		newIndizio.setPhoto(false);
 		return repository.save(newIndizio);
 	}
 
@@ -52,11 +63,26 @@ class IndizioController {
 				.orElseThrow(() -> new IndizioNotFoundException(id));
 	}
 
+	@GetMapping("/indiziblock/{id}")
+	List<Indizio> getAllindiziByBlockid(@PathVariable Integer id) {
+		logger.info("Request to get indizio with block id "+id);
+		return repository.findByBlockId(id);
+	}
+
 	@GetMapping("/faseindizio/{id}") 
 	Boolean faseIndizio(@PathVariable Long id) {
 		logger.info("Request to get fase for indizio "+id);
 		return repository.findById(id).get().getAiutoArrivato();
 
+	}
+	@PutMapping("indiziphoto/{id}")
+	public Indizio changePhoto(@RequestBody IndizioDTO photoDTO, @PathVariable Long id){
+		Optional<Indizio> indizio = repository.findById(id);
+		if(indizio.isPresent()){
+			 indizio.get().setPhoto(photoDTO.isFlag());
+			 return repository.save(indizio.get());
+		}
+		throw new IndizioNotFoundException(id);
 	}
 
 	@PutMapping("/indizi/{id}")

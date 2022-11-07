@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.corsarineri.portale.model.Indizio;
 
+import java.util.List;
+
 public interface IndizioRepository extends JpaRepository<Indizio, Long> {
 
 	@Query(value = "SELECT * \r\n" + 
@@ -17,5 +19,7 @@ public interface IndizioRepository extends JpaRepository<Indizio, Long> {
 	@Modifying
 	@Query(value = "DELETE FROM corsarineri.indizio WHERE numero = ?1", nativeQuery = true)
 	  int deleteByNumber(Long number);
+
+	public List<Indizio> findByBlockId(Integer blockId);
 
 }

@@ -37,6 +37,11 @@ public class Indizio {
 	private Long anno;
 	private Boolean aiutoArrivato;
 	private Boolean aiutoArrivato2;
+	private Integer blockId;
+	private Boolean photo;
+
+
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orarioAiuto;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -102,8 +107,18 @@ public class Indizio {
 		this.orarioRitiroComitato = orarioRitiroComitato;
 	}
 
+	public Integer getBlockId() {
+		return blockId;
+	}
 
-	
+	public void setBlockId(Integer blockId) {
+		this.blockId = blockId;
+	}
+	public Boolean getPhoto() {
+		return photo;
+	}
 
-	
+	public void setPhoto(Boolean photo) {
+		this.photo = photo;
+	}
 }
