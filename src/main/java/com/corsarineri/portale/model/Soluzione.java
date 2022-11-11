@@ -44,6 +44,7 @@ public class Soluzione {
 	private String stato;
 	private String fase;
 	private Boolean scartato;
+	private Boolean seen;
 	@Column(name="orario_invio_a_tc")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orarioInvioATc;
@@ -134,7 +135,11 @@ public class Soluzione {
 		this.correzioneLuogoSoluzione = correzioneLuogoSoluzione;
 	}
 
-	
+	public Boolean getSeen() {
+		return seen;
+	}
 
-	
+	public void setSeen(Boolean seen) {
+		this.seen = seen;
+	}
 }

@@ -63,6 +63,7 @@ class SoluzioneController {
 		if (!fasiAmmesse.contains(newSoluzione.getFase())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		if (newSoluzione.getSemaforo()!=null && newSoluzione.getSemaforo()!="" && !giudiziAmmessi.contains(newSoluzione.getSemaforo())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		if (!statiAmmessi.contains(newSoluzione.getStato())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		newSoluzione.setSeen(false);
 		return ResponseEntity.ok(repository.save(newSoluzione));
 	}
 
@@ -109,6 +110,19 @@ class SoluzioneController {
 		logger.info("Request to get soluzioni after id "+id);
 		return repository.findSoluzioniAfterId(id);
 
+	}
+
+	@PutMapping("/seen-solutize")
+	public void updateSeen(){
+		repository.updateAllSeen();
+	}
+	@GetMapping("/validate-unseen")
+	public boolean checkUnseen(){
+		List<Soluzione> soluziones =  repository.checkUnseen();
+		if(soluziones.isEmpty()){
+			return false;
+		}
+		return true;
 	}
 
 	@PutMapping("/soluzioni/{id}")
