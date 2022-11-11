@@ -3,6 +3,7 @@ package com.corsarineri.portale.controllers.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.corsarineri.portale.service.IndizioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,11 @@ class SoluzioneController {
 	private final List<String> fasiAmmesse = new ArrayList<>();
 	private final List<String> statiAmmessi = new ArrayList<>();
 	private final List<String> giudiziAmmessi = new ArrayList<>();
+	private final IndizioService indizioService;
 	
-	SoluzioneController(SoluzioneRepository repository) {
+	SoluzioneController(SoluzioneRepository repository, IndizioService indizioService) {
 		this.repository = repository;
+		this.indizioService = indizioService;
 		fasiAmmesse.add("silenzio");
 		fasiAmmesse.add("aiuto");
 		
@@ -124,8 +127,14 @@ class SoluzioneController {
 					if (newSoluzione.getOrarioInvioATc()!=null) soluzione.setOrarioInvioATc(newSoluzione.getOrarioInvioATc());
 					if (newSoluzione.getOrarioStampa()!=null) soluzione.setOrarioStampa(newSoluzione.getOrarioStampa());
 					if (newSoluzione.getRagionamento()!=null) soluzione.setRagionamento(newSoluzione.getRagionamento());
-					if (newSoluzione.getSemaforo()!=null) soluzione.setSemaforo(newSoluzione.getSemaforo());
 					if (newSoluzione.getStato()!=null) soluzione.setStato(newSoluzione.getStato());
+					if (newSoluzione.getSemaforo()!=null) {
+					 soluzione.setSemaforo(newSoluzione.getSemaforo());
+					 indizioService.updateSemaforo(newSoluzione.getSemaforo(),newSoluzione.getIndizio());
+					}
+//					if(newSoluzione.getSemaforo()!=null){
+//						indizioService.updateSemaforo(soluzione);
+//					}
 
 					return repository.save(soluzione);
 				})

@@ -51,6 +51,7 @@ class IndizioController {
 		logger.info("Request to create new indizio: "+newIndizio);
 		newIndizio.setBlockId(blockService.getCurrentBlockValue());
 		newIndizio.setPhoto(false);
+		newIndizio.setSemaforo("rosso");
 		return repository.save(newIndizio);
 	}
 

@@ -39,7 +39,7 @@ public class Indizio {
 	private Boolean aiutoArrivato2;
 	private Integer blockId;
 	private Boolean photo;
-
+	private String semaforo;
 
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -120,5 +120,13 @@ public class Indizio {
 
 	public void setPhoto(Boolean photo) {
 		this.photo = photo;
+	}
+
+	public String getSemaforo() {
+		return semaforo;
+	}
+
+	public void setSemaforo(String semaforo) {
+		this.semaforo = semaforo;
 	}
 }
